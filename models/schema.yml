@@ -64,6 +64,8 @@ models:
         meta:
           dimension:
             hidden: true
+      - name: location
+        description: "Customer location"
   - name: orders
     description: >-
       This table has basic information about orders, as well as some derived
