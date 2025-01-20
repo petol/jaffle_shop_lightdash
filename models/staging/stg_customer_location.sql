@@ -11,7 +11,7 @@ with source as (
 renamed as (
 
     select
-        id as customer_id,
+        customer_id,
         region as location
     from source
 
