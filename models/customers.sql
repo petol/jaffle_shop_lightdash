@@ -18,7 +18,7 @@ payments as (
 
 locations as (
     select * from {{ref('stg_customer_location')}}
-)
+),
 
 customer_orders as (
 
