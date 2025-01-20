@@ -16,6 +16,10 @@ payments as (
 
 ),
 
+locations as (
+    select * from {{ref('stg_customer_location')}}
+)
+
 customer_orders as (
 
         select
@@ -52,6 +56,7 @@ customer_payments as (
 
 ),
 
+
 final as (
 
     select
@@ -62,6 +67,7 @@ final as (
         customer_orders.first_order,
         customer_orders.most_recent_order,
         customer_orders.number_of_orders,
+        locations.location,
         customer_payments.total_amount as customer_lifetime_value,
         customer_orders.first_order::date - customers.created::date AS days_between_created_and_first_order,
         EXTRACT(day FROM customer_orders.most_recent_order::timestamp - customer_orders_latest.latest_order::timestamp) AS days_since_last_order
@@ -73,6 +79,8 @@ final as (
     left join customer_payments using (customer_id)
 
     LEFT JOIN customer_orders_latest USING(customer_id)
+
+    LEFT JOIN locations using(customer_id)
 
 )
 
